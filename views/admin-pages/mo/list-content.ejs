@@ -12,12 +12,15 @@
       </div>
       <div class="x_content">
         <br/>
-        <%if(error.length>0){if(error == "Partcipant has been registered succesfully!"){%>
+        <% let success1="Data has been deleted succesfully!" %> 
+        <% let success2="Payment completed successfuly!" %> 
+        <% let success3="Participant has been selected successfully!" %> 
+        <%if(error.length>0){if(error == success1 || error == success2 || success3){%>
           <div class="alert alert-success">
             <%= error%><br />
           </div>
           <%}else{%>
-          <div class="alert alert-danger">
+          <div class="alert alert-success">
             <%= error%><br />
           </div>
         <%}%>
@@ -56,17 +59,32 @@
                   <td><%=participant.tshirt%></td>
                   <td><%=participant.total%></td>
                   <td><%=participant.paid%></td>
-                  <td><%=participant.selected%></td>
+                  <td><%if(participant.selected == true){%>
+                      <p style="color: cadetblue;">Yes</p>
+                    <%}else{%>
+                      <p style="color: brown;">No</p>
+                    <%}%></td>
                   <td>
                     <%if(participant.paid == participant.total){%>
-                      <p style="color: cadetblue;">Successful</p>
+                      <p style="color: cadetblue;">Paid</p>
                     <%}else{%>
                       <p style="color: brown;">Incomplete</p>
                     <%}%>
                   </td>
-                  <td>Select</td>
-                  <td>Payment done</td>
-                  <td>Edit</td>
+                  <td><% const selectURL = "select/" + participant._id %>
+                      <a href="<%= selectURL %>" data-toggle="tooltip" title="Complete">
+                        <i style="color: rgb(13, 78, 218);" class="glyphicon glyphicon-ok"></i>
+                      </a></td>
+                  <td>
+                    <% const paymentDoneURL = "paymentDone/" + participant._id %>
+                      <a href="<%= paymentDoneURL %>" data-toggle="tooltip" title="Complete">
+                        <i style="color: rgb(2, 175, 2);" class="glyphicon glyphicon-check"></i>
+                      </a>
+                    </td>
+                  <td><% const editURL = "edit/" + participant._id %>
+                      <a href="<%= editURL %>" data-toggle="tooltip" title="Complete">
+                        <i style="color: rgb(116, 118, 119);" class="glyphicon glyphicon-pencil"></i>
+                      </a></td>
                   <td>
                     <% const deleteURL = "delete/" + participant._id %>
                       <a href="<%= deleteURL %>" data-toggle="tooltip" title="Delete">
