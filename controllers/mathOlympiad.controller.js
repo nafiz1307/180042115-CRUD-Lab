@@ -6,3 +6,13 @@ const postMO= (req,res)=>{
     res.render("math-olympiad/list.ejs")
 }
 
+const deleteMO = (req,res)=>{
+    const id = req.params.id;
+    console.log(id);
+    res.render('math-olympiad.list.ejs')
+}
+const getMOList = (req,res)=>{
+    res.render('math-olympiad.list.ejs')
+}
+
+module.exports={getMO,postMO,deleteMO,getMOList}
