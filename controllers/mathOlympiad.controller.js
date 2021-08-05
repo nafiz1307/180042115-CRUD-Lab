@@ -63,23 +63,27 @@ const postMO = (req, res) => {
   });
 };
 
-const deleteMO = (req, res) => {
-    let error="";
-  const id = req.params.id;
-  MathOlympiad.deleteOne({_id:id},(err)=>{
-      if(err){
-          console.log("here")
-          error = 'Failed to delete data!'
-          req.flash('error',error)
-          res.redirect("list");
-      }else{
-          error="Data has been deleted successfully"
-          req.flash('error',error)
-          res.redirect("list");
-      }
-  })
-  res.render("math-olympiad/list.ejs");
-};
+const deleteMO = (req, res) =>{
+    const id = req.params.id;
+    let error = ''
+
+    console.log(id);
+
+    MathOlympiad.deleteOne({ _id: id }, (err) =>{
+        if (err) {
+            error = "Failed to delete data."
+            req.flash('error', error);
+
+            res.redirect('/MathOlympiad/list');
+        }
+        else{
+            error = "Data Successfully deleted."
+            req.flash('error', error);
+
+            res.redirect('/MathOlympiad/list');
+        }
+    });
+}
 const getMOList = (req, res) => {
   let all_partcipant = [];
   let error = "";
