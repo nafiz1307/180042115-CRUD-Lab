@@ -64,8 +64,20 @@ const postMO = (req, res) => {
 };
 
 const deleteMO = (req, res) => {
+    let error="";
   const id = req.params.id;
-  console.log(id);
+  MathOlympiad.deleteOne({_id:id},(err)=>{
+      if(err){
+          console.log("here")
+          error = 'Failed to delete data!'
+          req.flash('error',error)
+          res.redirect("list");
+      }else{
+          error="Data has been deleted successfully"
+          req.flash('error',error)
+          res.redirect("list");
+      }
+  })
   res.render("math-olympiad/list.ejs");
 };
 const getMOList = (req, res) => {
