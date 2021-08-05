@@ -4,19 +4,7 @@ const PCschema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    category : {
-        type : String,
-        required : true,
-    },
-    contact : {
-        type : String,
-        required : true,
-    },
 
-    email : {
-        type : String,
-        required : false,
-    },
     institution : {
         type : String,
         required : false,
@@ -45,51 +33,63 @@ const PCschema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    firstMemberName : {
+    coachContact : {
         type : String,
         required : true,
     },
-    firstMemberEmail : {
+    coachEmail : {
         type : String,
         required : true,
     },
-    firstMemberContact : {
+    coachTshirt : {
         type : String,
         required : true,
     },
-    firstMembertshirt : {
+    m_name0 : {
         type : String,
         required : true,
     },
-    secondMemberName : {
+    m_email0 : {
         type : String,
         required : true,
     },
-    secondMemberEmail : {
+    m_contact0 : {
         type : String,
         required : true,
     },
-    secondMemberContact : {
+    m_tshirt0 : {
         type : String,
         required : true,
     },
-    secondMembertshirt : {
+    m_name1 : {
         type : String,
         required : true,
     },
-    leaderName : {
+    m_email1 : {
         type : String,
         required : true,
     },
-    leaderEmail : {
+    m_contact1 : {
         type : String,
         required : true,
     },
-    leaderContact : {
+    m_tshirt1 : {
         type : String,
         required : true,
     },
-    leadertshirt : {
+    m_name2 : {
+        type : String,
+        required : true,
+    },
+    m_email2 : {
+        type : String,
+        required : true,
+    },
+    m_contact2 : {
+        type : String,
+        required : true,
+    },
+    m_tshirt2 : {
         type : String,
         required : true,
     },

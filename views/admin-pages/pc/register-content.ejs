@@ -1,162 +1,239 @@
-<!-- page content -->
 <div class="right_col" role="main">
     <div class="">
       <div class="clearfix"></div>
       <div class="row">
-        <div class="col-md-12 col-sm-12">
+        <div class="col-md-12 col-sm-12 ">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Math Olympiad <small>Register Participant</small></h2>
+              <h2>Programming Contest  <small>Team Registration</small></h2>
               <ul class="nav navbar-right panel_toolbox">
-                <li>
-                  <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
-                <li class="dropdown">
-                  <a
-                    href="#"
-                    class="dropdown-toggle"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    ><i class="fa fa-wrench"></i
-                  ></a>
+                <li><a href="/dashboard"><i class="fa fa-close"></i></a>
                 </li>
               </ul>
-  
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <br />
-              <%if(error.length>0){if(error == "Partcipant has been registered succesfully!"){%>
-                <div class="alert alert-success">
-                  <%= error%><br />
-                </div>
-                <%}else{%>
-                <div class="alert alert-danger">
-                  <%= error%><br />
-                </div>
-              <%}%>
-            <%}%>
-              <form
-                method="POST"
-                action="/MathOlympiad/register"
-                id="demo-form2"
-                data-parsley-validate
-                class="form-horizontal form-label-left"
-              >
-                <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                  >
-                    Name <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required="required"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                  >
-                    Contact No. <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <input
-                      type="text"
-                      id="contact"
-                      name="contact"
-                      required="required"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                    >Email
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-                <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                  >
-                    Institution <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <input
-                      type="text"
-                      id="institution"
-                      name="institution"
-                      required="required"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
+              <br/>
+
+              <%if(error.length>0){if(error == "Team Added Successfully"){%>
+                    <div class="alert alert-success">
+                        <%= error%><br />
+                    </div>
+                    <%}else{%>
+                    <div class="alert alert-danger">
+                        <%= error%><br />
+                    </div>
+                    <%}%>
+                <%}%>
   
-                <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                  >
-                    Category <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <select class="form-control" id="category" name="category">
-                      <option disabled>... Choose Option ...</option>
-                      <option value="School">School</option>
-                      <option value="College">College</option>
-                      <option value="University">University</option>
-                    </select>
-                  </div>
+              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" 
+                method="POST" action="/ProgrammingContest/Register-Team">
+                
+                <!--Team-->
+                <div class="x_title">
+                  <h6>Team Information</h6>                    
+                  <div class="clearfix"></div>
                 </div>
-  
+
                 <div class="item form-group">
-                  <label
-                    class="col-form-label col-md-3 col-sm-3 label-align"
-                    for="first-name"
-                    >T-Shirt <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6">
-                    <select class="form-control" id="tshirt" name="tshirt">
-                      <option disabled>... Choose Option ...</option>
-                      <option value="S">Small</option>
-                      <option value="M">Medium</option>
-                      <option value="L">Large</option>
-                      <option value="XL">Extra Large</option>
-                    </select>
-                  </div>
+                    <div class="col-md-6 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Team Name *</label>
+                            <input required="required" type="text" id="teamName" name="teamName" placeholder="Team Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Institution Name *</label>
+                            <input required="required" type="text" id="institution" name="institution" placeholder="Institution Name" class="form-control">
+                        </div>
+                    </div>
                 </div>
-  
+
+                <!--Coach-->
+                <div class="x_title">
+                    <h6>Coach Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Coach *</label>
+                            <input required="required" type="text" id="coachName" name="coachName" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Coach *</label>
+                            <input required="required" type="email" id="coachEmail" name="coachEmail" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Coach *</label>
+                            <input required="required" type="text" id="coachContact" name="coachContact" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="coachTshirt" name="coachTshirt">
+                                <option disabled>Choose an Option</option>
+                                <option value="M">Medium</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="L">Large</option>
+                                <option value="S">Small</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 0-->
+                <div class="x_title">
+                    <h6>Team Leader Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Team Leader *</label>
+                            <input required="required" type="text" id="m_name0" name="m_name0" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Team Leader *</label>
+                            <input required="required" type="email" id="m_email0" name="m_email0" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Team Leader *</label>
+                            <input required="required" type="text" id="m_contact0" name="m_contact0" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="m_tshirt0" name="m_tshirt0">
+                                <option disabled>Choose an Option</option>
+                                <option value="M">Medium</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="L">Large</option>
+                                <option value="S">Small</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 1-->
+                <div class="x_title">
+                    <h6>Team Member-1 Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Member-1 *</label>
+                            <input required="required" type="text" id="m_name1" name="m_name1" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Member-1 *</label>
+                            <input required="required" type="email" id="m_email1" name="m_email1" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Member-1 *</label>
+                            <input required="required" type="text" id="m_contact1" name="m_contact1" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="m_tshirt1" name="m_tshirt1">
+                                <option disabled>Choose an Option</option>
+                                <option value="M">Medium</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="L">Large</option>
+                                <option value="S">Small</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 2-->
+                <div class="x_title">
+                    <h6>Team Member-2 Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Member-2 *</label>
+                            <input required="required" type="text" id="m_name2" name="m_name2" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Member-2 *</label>
+                            <input required="required" type="email" id="m_email2" name="m_email2" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Member-2 *</label>
+                            <input required="required" type="text" id="m_contact2" name="m_contact2" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="m_tshirt2" name="m_tshirt2">
+                                <option disabled>Choose an Option</option>
+                                <option value="M">Medium</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="L">Large</option>
+                                <option value="S">Small</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="ln_solid"></div>
                 <div class="item form-group">
                   <div class="col-md-6 col-sm-6 offset-md-3">
-                    <button class="btn btn-primary" type="reset">Reset</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button class="btn btn-dark btn-xs" type="reset">Reset</button>
+                    <button type="submit" class="btn btn-success btn-xs">Submit</button>
                   </div>
                 </div>
+
               </form>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+</div>
