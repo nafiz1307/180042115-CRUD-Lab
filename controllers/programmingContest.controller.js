@@ -1,7 +1,7 @@
 const MathOlympiad = require("../models/MathOlympiad.model");
 
-const getMO = (req, res) => {
-  res.render("math-olympiad/register.ejs", { error: req.flash("error") });
+const getPC = (req, res) => {
+  res.render("programming-contest/register.ejs", { error: req.flash("error") });
 };
 
 const postMO = (req, res) => {
@@ -241,4 +241,4 @@ const postEditMO = (req, res) =>{
     })
 }
 
-module.exports = { getMO, postMO, deleteMO, getMOList, paymentDoneMO, selectMO , getEditMO, postEditMO };
+module.exports = { getPC, postMO, deleteMO, getMOList, paymentDoneMO, selectMO , getEditMO, postEditMO };
