@@ -1,13 +1,21 @@
-const express = require('express')
+const express = require("express");
 const router = express.Router();
 
-const {ensureAuhtenticated , addUserData}= require('../middlewares/auth.middleware');
+const {
+  ensureAuthenticated,
+  addUserData,
+} = require("../middlewares/auth.middleware");
 
-const {getMO, postMO, getMoList, deleteMo} = require ('../controllers/mathOlympiad.controller');
+const {
+  getMO,
+  postMO,
+  deleteMO,
+  getMOList,
+} = require("../controllers/mathOlympiad.controller");
 
-router.get('/register',ensureAuhtenticated,addUserData,getMO);
-router.post('/register',ensureAuhtenticated,addUserData,postMO);
-router.get('/list',ensureAuhtenticated,addUserData,getMoList);
-router.get('/delete/:id',ensureAuhtenticated,addUserData,deleteMo);
+router.get("/register",ensureAuthenticated, addUserData, getMO);
+router.post("/register", ensureAuthenticated, addUserData, postMO);
+router.get("/list", ensureAuthenticated, addUserData, getMOList);
+router.get("/delete/:id", ensureAuthenticated, addUserData, deleteMO);
 
 module.exports = router;
