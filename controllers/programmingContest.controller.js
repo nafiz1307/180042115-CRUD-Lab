@@ -1,10 +1,10 @@
-const MathOlympiad = require("../models/MathOlympiad.model");
+const ProgrammingContest = require("../models/ProgrammingContest.model");
 
 const getPC = (req, res) => {
   res.render("programming-contest/register.ejs", { error: req.flash("error") });
 };
 
-const postMO = (req, res) => {
+const postPC = (req, res) => {
   const { name, category, contact, email, institution, tshirt } = req.body;
   console.log(name);
   console.log(category);
@@ -25,14 +25,14 @@ const postMO = (req, res) => {
   const paid = 0;
   const selected = false;
   let error = "";
-  MathOlympiad.findOne({ name: name, contact: contact }).then((participant) => {
+  ProgrammingContest.findOne({ name: name, contact: contact }).then((participant) => {
     if (participant) {
       error = "Participant with this name and contact number already exists!";
       console.log(error);
       req.flash("error", error);
-      res.redirect("/MathOlympiad/register");
+      res.redirect("/ProgrammingContest/register");
     } else {
-      const participant = new MathOlympiad({
+      const participant = new ProgrammingContest({
         name: name,
         category: category,
         contact: contact,
@@ -49,42 +49,42 @@ const postMO = (req, res) => {
           error = "Partcipant has been registered succesfully!";
           console.log(error);
           req.flash("error", error);
-          res.redirect("/MathOlympiad/register");
+          res.redirect("/ProgrammingContest/register");
         })
         .catch(() => {
           error = "Unexpected error has occured!";
           console.log(error);
           req.flash("error", error);
-          res.redirect("/MathOlympiad/register");
+          res.redirect("/ProgrammingContest/register");
         });
     }
   });
 };
 
-const deleteMO = (req, res) => {
+const deletePC = (req, res) => {
   const id = req.params.id;
   let error = "";
 
   console.log(id);
 
-  MathOlympiad.deleteOne({ _id: id }, (err) => {
+  ProgrammingContest.deleteOne({ _id: id }, (err) => {
     if (err) {
       error = "Failed to delete data.";
       req.flash("error", error);
 
-      res.redirect("/MathOlympiad/list");
+      res.redirect("/ProgrammingContest/list");
     } else {
       error = "Data Successfully deleted.";
       req.flash("error", error);
 
-      res.redirect("/MathOlympiad/list");
+      res.redirect("/ProgrammingContest/list");
     }
   });
 };
-const getMOList = (req, res) => {
+const getPCList = (req, res) => {
   let all_partcipant = [];
   let error = "";
-  MathOlympiad.find()
+  ProgrammingContest.find()
     .then((data) => {
       all_partcipant = data;
       res.render("math-olympiad/list.ejs", {
@@ -101,13 +101,13 @@ const getMOList = (req, res) => {
     });
 };
 
-const paymentDoneMO = (req, res) => {
+const paymentDonePC = (req, res) => {
   const id = req.params.id;
   let error = "";
 
   console.log(id);
 
-  MathOlympiad.findOne({ _id: id })
+  ProgrammingContest.findOne({ _id: id })
     .then((participant) => {
       participant.paid = participant.total;
 
@@ -118,14 +118,14 @@ const paymentDoneMO = (req, res) => {
           req.flash("error", error);
 
           console.log(error);
-          res.redirect("/MathOlympiad/list");
+          res.redirect("/ProgrammingContest/list");
         })
         .catch(() => {
           error = "Unknown Error occured and Payment was denied.";
           req.flash("error", error);
 
           console.log(error);
-          res.redirect("/MathOlympiad/list");
+          res.redirect("/ProgrammingContest/list");
         });
     })
     .catch(() => {
@@ -133,17 +133,17 @@ const paymentDoneMO = (req, res) => {
       req.flash("error", error);
 
       console.log(error);
-      res.redirect("/MathOlympiad/list");
+      res.redirect("/ProgrammingContest/list");
     });
 };
 
-const selectMO = (req, res) => {
+const selectPC = (req, res) => {
     const id = req.params.id;
     let error = "";
   
     console.log(id);
   
-    MathOlympiad.findOne({ _id: id })
+    ProgrammingContest.findOne({ _id: id })
       .then((participant) => {
         participant.selected = true;
   
@@ -154,14 +154,14 @@ const selectMO = (req, res) => {
             req.flash("error", error);
   
             console.log(error);
-            res.redirect("/MathOlympiad/list");
+            res.redirect("/ProgrammingContest/list");
           })
           .catch(() => {
             error = "Error Occured Participant couldn't be selected";
             req.flash("error", error);
   
             console.log(error);
-            res.redirect("/MathOlympiad/list");
+            res.redirect("/ProgrammingContest/list");
           });
       })
       .catch(() => {
@@ -169,18 +169,18 @@ const selectMO = (req, res) => {
         req.flash("error", error);
   
         console.log(error);
-        res.redirect("/MathOlympiad/list");
+        res.redirect("/ProgrammingContest/list");
       });
   };
 
-  const getEditMO = (req, res) =>{
+  const getEditPC = (req, res) =>{
     const id = req.params.id;
     let Participant = [];
     let error = ''
 
     console.log(id);
 
-    MathOlympiad.findOne({ _id: id }).then((data) => {
+    ProgrammingContest.findOne({ _id: id }).then((data) => {
         Participant = data;
 
         res.render("math-olympiad/edit.ejs", { 
@@ -200,13 +200,13 @@ const selectMO = (req, res) => {
     
 }
 
-const postEditMO = (req, res) =>{
+const postEditPC = (req, res) =>{
     const id = req.params.id;
     let error = ''
 
     console.log(id);
 
-    MathOlympiad.findOne({ _id: id }).then( (participant) => {
+    ProgrammingContest.findOne({ _id: id }).then( (participant) => {
         if (participant) {
             const { name, category, contact, email, institution, tshirt } = req.body;
 
@@ -222,13 +222,13 @@ const postEditMO = (req, res) =>{
                 req.flash('error', error);
     
                 console.log(error);
-                res.redirect('/MathOlympiad/Participant-list');
+                res.redirect('/ProgrammingContest/Participant-list');
             }).catch(()=>{
                 error = "Unknown Error occured and Data was not Edited."
                 req.flash('error', error);
     
                 console.log(error);
-                res.redirect('/MathOlympiad/Participant-list');
+                res.redirect('/ProgrammingContest/Participant-list');
             });
         }
         else {
@@ -236,9 +236,9 @@ const postEditMO = (req, res) =>{
             req.flash('error', error);
     
             console.log(error);
-            res.redirect('/MathOlympiad/Participant-list');
+            res.redirect('/ProgrammingContest/Participant-list');
         }
     })
 }
 
-module.exports = { getPC, postMO, deleteMO, getMOList, paymentDoneMO, selectMO , getEditMO, postEditMO };
+module.exports = { getPC, postPC, deletePC, getPCList, paymentDonePC, selectPC , getEditPC, postEditPC };
