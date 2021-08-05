@@ -28,6 +28,16 @@
           </div>
           <div class="x_content">
             <br />
+            <%if(error.length>0){if(error == "Partcipant has been registered succesfully!"){%>
+              <div class="alert alert-success">
+                <%= error%><br />
+              </div>
+              <%}else{%>
+              <div class="alert alert-danger">
+                <%= error%><br />
+              </div>
+            <%}%>
+          <%}%>
             <form
               method="POST"
               action="/MathOlympiad/register"
@@ -128,6 +138,7 @@
                 <div class="col-md-6 col-sm-6">
                   <select class="form-control" id="tshirt" name="tshirt">
                     <option disabled>... Choose Option ...</option>
+                    <option value="S">Small</option>
                     <option value="M">Medium</option>
                     <option value="L">Large</option>
                     <option value="XL">Extra Large</option>
