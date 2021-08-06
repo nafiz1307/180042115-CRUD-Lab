@@ -220,48 +220,87 @@ const getEditPC = (req, res) => {
     });
 };
 
-const postEditPC = (req, res) => {
+const postEditPC = (req, res) =>{
   const id = req.params.id;
-  let error = "";
+  let error = ''
 
   console.log(id);
 
-  ProgrammingContest.findOne({ _id: id }).then((participant) => {
-    if (participant) {
-      const { name, category, contact, email, institution, tshirt } = req.body;
+  ProgrammingContest.findOne({ _id: id }).then( (team) => {
+      if (team) {
+          const { 
+              teamName,
+              institution,
+      
+              coachName,
+              coachContact,
+              coachEmail,
+              coachTshirt,
+      
+              m_name0,
+              m_contact0,
+              m_email0,
+              m_tshirt0,
+      
+              m_name1,
+              m_contact1,
+              m_email1,
+              m_tshirt1,
+      
+              m_name2,
+              m_contact2,
+              m_email2,
+              m_tshirt2,
+      
+          } = req.body;
 
-      participant.name = name;
-      participant.category = category;
-      participant.contact = contact;
-      participant.email = email;
-      participant.institution = institution;
-      participant.tshirt = tshirt;
+          team.teamName = teamName;
+          team.institution = institution;
 
-      participant
-        .save()
-        .then(() => {
-          error = "Participant Data was edited successfully.";
-          req.flash("error", error);
+          team.coachName = coachName;
+          team.coachContact = coachContact;
+          team.coachEmail = coachEmail;
+          team.coachTshirt = coachTshirt;
 
+          team.m_name0 = m_name0;
+          team.m_contact0 = m_contact0;
+          team.m_email0 = m_email0;
+          team.m_tshirt0 = m_tshirt0;
+
+          team.m_name1 = m_name1;
+          team.m_contact1 = m_contact1;
+          team.m_email1 = m_email1;
+          team.m_tshirt1 = m_tshirt1;
+
+          team.m_name2 = m_name2;
+          team.m_contact2 = m_contact2;
+          team.m_email2 = m_email2;
+          team.m_tshirt2 = m_tshirt2;
+
+          team.save().then(()=>{
+              error = "Team Data was edited successfully.";
+              req.flash('error', error);
+  
+              console.log(error);
+              res.redirect('/ProgrammingContest/list');
+          }).catch(()=>{
+              error = "Unknown Error occured and Data was not Edited."
+              req.flash('error', error);
+  
+              console.log(error);
+              res.redirect('/ProgrammingContest/list');
+          });
+      }
+      else {
+          error = "Unknown Error occured and Data was not Edited."
+          req.flash('error', error);
+  
           console.log(error);
-          res.redirect("/ProgrammingContest/Participant-list");
-        })
-        .catch(() => {
-          error = "Unknown Error occured and Data was not Edited.";
-          req.flash("error", error);
+          res.redirect('/ProgrammingContest/list');
+      }
+  })
+}
 
-          console.log(error);
-          res.redirect("/ProgrammingContest/Participant-list");
-        });
-    } else {
-      error = "Unknown Error occured and Data was not Edited.";
-      req.flash("error", error);
-
-      console.log(error);
-      res.redirect("/ProgrammingContest/Participant-list");
-    }
-  });
-};
 
 module.exports = {
   getPC,
