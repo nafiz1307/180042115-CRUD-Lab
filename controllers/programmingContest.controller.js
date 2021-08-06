@@ -31,26 +31,38 @@ const postPC = (req, res) => {
   const paid = 0;
   const selected = false;
   let error = "";
-  ProgrammingContest.findOne({ teamName: teamName, contact: contact }).then(
-    (participant) => {
-      if (participant) {
-        error = "Participant with this name and contact number already exists!";
+  ProgrammingContest.findOne({ teamName: teamName, institution: institution }).then(
+    (team) => {
+      if (team) {
+        error = "Team with this name and contact number already exists!";
         console.log(error);
         req.flash("error", error);
         res.redirect("/ProgrammingContest/register");
       } else {
-        const participant = new ProgrammingContest({
-          name: name,
-          category: category,
-          contact: contact,
-          email: email,
+        const team = new ProgrammingContest({
+          teamName: teamName,
           institution: institution,
-          total: total,
-          paid: paid,
-          selected: selected,
-          tshirt: tshirt,
+          coachName: coachName,
+          coachEmail: coachEmail,
+          coachContact: coachContact,
+          coachTshirt: coachTshirt,
+          m_name0: m_name0,
+          m_email0: m_email0,
+          m_contact0: m_contact0,
+          m_tshirt0: m_tshirt0,
+          m_name1: m_name1,
+          m_email1: m_email1,
+          m_contact1: m_contact1,
+          m_tshirt1: m_tshirt1,
+          m_name2: m_name2,
+          m_email2: m_email2,
+          m_contact2: m_contact2,
+          m_tshirt2: m_tshirt2,
+          total : total,
+          paid : paid,
+          selected : selected,
         });
-        participant
+        team
           .save()
           .then(() => {
             error = "Team has been registered succesfully!";
@@ -58,9 +70,9 @@ const postPC = (req, res) => {
             req.flash("error", error);
             res.redirect("/ProgrammingContest/register");
           })
-          .catch(() => {
+          .catch((err) => {
             error = "Unexpected error has occured!";
-            console.log(error);
+            console.log(err);
             req.flash("error", error);
             res.redirect("/ProgrammingContest/register");
           });

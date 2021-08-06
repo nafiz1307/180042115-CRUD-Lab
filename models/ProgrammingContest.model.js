@@ -21,10 +21,6 @@ const PCschema = new mongoose.Schema({
         type : Boolean,
         required : true,
     },
-    tshirt : {
-        type : String,
-        required : true,
-    },
     date : {
         type : Date,
         default : Date.now,
