@@ -1,0 +1,145 @@
+<div class="right_col" role="main">
+    <!-- top tiles -->
+    
+    <div class="col-md-12 col-sm-12 ">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Programming Contest<small>Team List</small></h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <% let success = "Data Successfully deleted." %>
+          <% let success2 = "Payment Accepted Successfully." %>
+          <% let success3 = "Team Selected Successfully." %>
+          <% let success4 = "Team Data was edited successfully." %>
+          
+          <%if(error.length>0){if(error == success || success2 || success3){%>
+              <div class="alert alert-success">
+                  <%=error%><br/>
+              </div>
+            <%}else{%>
+              <div class="alert alert-danger">
+                  <%= error%><br/>
+              </div>
+            <%}%>
+          <%}%>
+          
+            <div class="row">
+                <div class="col-sm-12">
+                  <div class="card-box table-responsive">
+          
+  
+          <table id="datatable-responsive" class="table jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Team Name</th>
+                <th>Institution</th>
+                <th>Coach<br>Name</th>
+                <th>Coach<br>Contact No.</th>
+                <th>Coach Email</th>
+                <th>Team Leader<br>Name</th>
+                <th>Team<br>Leader<br>Contact No.</th>
+                <th>Selected</th>
+                <th>Payment<br>Status</th>
+                <th>Select</th>
+                <th>Payment<br>Done</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+                <th>Coach<br>T-Shirt</th>
+                <th>Team Leader Email</th>
+                <th>Team Leader T-Shirt</th>
+                
+                <th>Team Member-1 Name</th>
+                <th>Team Member-1 Email</th>
+                <th>Team Member-1 Contact No.</th>
+                <th>Team Member-1 T-Shirt</th>
+
+                <th>Team Member-2 Name</th>
+                <th>Team Member-2 Email</th>
+                <th>Team Member-2 Contact No.</th>
+                <th>Team Member-2 T-Shirt</th>
+
+                <th>Fees</th>
+                <th>Paid</th>
+                <th>Added<br>At</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%if(teams.length>0){%>
+                <%teams.forEach(team=> {%>
+              <tr>
+                <td><%= team.teamName %></td>
+                <td><%= team.institution %></td>
+                <td><%= team.coachName %></td>
+                <td><%= team.coachContact %></td>
+                <td><%= team.coachEmail %></td>
+                <td><%= team.m_name0 %></td>
+                <td><%= team.m_contact0 %></td>
+                <td><%= team.selected %></td>
+                <td>
+                  <%if(team.paid == team.total){%>
+                    <p style="color: cadetblue;">Successful</p>
+                  <%}else{%>
+                    <p style="color: brown;">Incomplete</p>
+                  <%}%>
+                </td>
+                <td>
+                  <% const teamSelectedURL = "Selected/" + team._id %>
+                  <a href="<%= teamSelectedURL %>" data-toggle="tooltip" title="Team Selected?">
+                    <i class="glyphicon glyphicon-ok"></i> <i class="fa fa-users"></i>
+                  </a>
+                </td>
+                <td>
+                  <% const PaymentDoneURL = "paymentDone/" + team._id %>
+                  <a href="<%= PaymentDoneURL %>" data-toggle="tooltip" title="Payment Done?">
+                    <i class="glyphicon glyphicon-ok"></i>  <i class="fa fa-dollar"></i>
+                  </a>
+                </td>
+                <td>
+                  <% const editDoneURL = "edit/" + team._id %>
+                  <a href="<%= editDoneURL %>" data-toggle="tooltip" title="Edit">
+                    <i style="color: green;"class="glyphicon glyphicon-pencil"></i>
+                  </a>
+                </td>
+                <td>
+                  <% const deleteURL = "delete/" + team._id %>
+                  <a href="<%= deleteURL %>" data-toggle="tooltip" title="Delete">
+                    <i style="color: brown;" class="glyphicon glyphicon-trash"></i>
+                  </a>
+                </td>
+                
+                <td><%= team.coachTshirt %></td>
+                <td><%= team.m_email0 %></td>
+                <td><%= team.m_tshirt0 %></td>
+                <td><%= team.m_name1 %></td>
+                <td><%= team.m_contact1 %></td>
+                <td><%= team.m_email1 %></td>
+                <td><%= team.m_tshirt1 %></td>
+                <td><%= team.m_name2 %></td>
+                <td><%= team.m_contact2 %></td>
+                <td><%= team.m_email2 %></td>
+                <td><%= team.m_tshirt2 %></td>
+                
+                <td><%= team.total %></td>
+                <td><%= team.paid %></td>
+                <td><%= team.date %></td>
+              </tr>
+              <%})%>
+            <%}%>
+            </tbody>
+          </table>
+  
+  
+                  </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+</div>

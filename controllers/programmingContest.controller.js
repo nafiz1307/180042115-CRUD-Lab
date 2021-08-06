@@ -102,21 +102,21 @@ const deletePC = (req, res) => {
   });
 };
 const getPCList = (req, res) => {
-  let all_partcipant = [];
+  let all_team = [];
   let error = "";
   ProgrammingContest.find()
     .then((data) => {
-      all_partcipant = data;
-      res.render("math-olympiad/list.ejs", {
+      all_team = data;
+      res.render("programming-contest/list.ejs", {
         error: req.flash("error"),
-        participants: all_partcipant,
+        teams: all_team,
       });
     })
     .catch(() => {
       error = "Failed to fetch data!";
-      res.render("math-olympiad/list.ejs", {
+      res.render("programming-contest/list.ejs", {
         error: req.flash("error", error),
-        participants: all_partcipant,
+        teams: all_team,
       });
     });
 };
@@ -204,7 +204,7 @@ const getEditPC = (req, res) => {
     .then((data) => {
       Participant = data;
 
-      res.render("math-olympiad/edit.ejs", {
+      res.render("programming-contest/edit.ejs", {
         participant: Participant,
         error: req.flash("error"),
       });
@@ -212,7 +212,7 @@ const getEditPC = (req, res) => {
     .catch(() => {
       error = "An Unexpected Error occured while fetching data.";
 
-      res.render("math-olympiad/edit.ejs", {
+      res.render("programming-contest/edit.ejs", {
         username: username,
         participant: Participant,
         error: req.flash("error", error),
