@@ -1,0 +1,297 @@
+<div class="right_col" role="main">
+    <div class="">
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Programming Contest  <small>Edit Data for <b><%= team.teamName %></b></small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li><a href="/ProgrammingContest/Team-list"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br/>            
+  
+              <% const editURL = "/ProgrammingContest/Edit/" + team._id %>
+              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" 
+                method="POST" action="<%= editURL %>">
+                
+                <!--Team-->
+                <div class="x_title">
+                  <h6>Team Information</h6>                    
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-6 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Team Name *</label>
+                            <input required="required" type="text" value="<%= team.teamName %>" id="teamName" name="teamName" placeholder="Team Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Institution Name *</label>
+                            <input required="required" type="text" value="<%= team.institution %>" id="institution" name="institution" placeholder="Institution Name" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Coach-->
+                <div class="x_title">
+                    <h6>Coach Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Coach *</label>
+                            <input required="required" type="text" value="<%= team.coachName %>" id="coachName" name="coachName" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Coach *</label>
+                            <input required="required" type="email" value="<%= team.coachEmail %>" id="coachEmail" name="coachEmail" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Coach *</label>
+                            <input required="required" type="text" value="<%= team.coachContact %>" id="coachContact" name="coachContact" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" value="<%= team.coachTshirt %>" id="coachTshirt" name="coachTshirt">
+                                <option disabled>Choose an Option</option>
+                                <%if(team.coachTshirt == "M"){%>
+                                    <option value="<%= team.coachTshirt %>"><%= team.coachTshirt %></option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.coachTshirt == "XL"){%>
+                                    <option value="<%= team.coachTshirt %>"><%= team.coachTshirt %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.coachTshirt == "L"){%>
+                                    <option value="<%= team.coachTshirt %>"><%= team.coachTshirt %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="S">Small</option>  
+                                <%}else{%>
+                                    <option value="<%= team.coachTshirt %>"><%= team.coachTshirt %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 0-->
+                <div class="x_title">
+                    <h6>Team Leader Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Team Leader *</label>
+                            <input required="required" type="text" value="<%= team.m_name0 %>" id="m_name0" name="m_name0" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Team Leader *</label>
+                            <input required="required" type="email" value="<%= team.m_email0 %>" id="m_email0" name="m_email0" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Team Leader *</label>
+                            <input required="required" type="text" value="<%= team.m_contact0 %>" id="m_contact0" name="m_contact0" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" value="<%= team.m_tshirt0 %>" id="m_tshirt0" name="m_tshirt0">
+                                <option disabled>Choose an Option</option>
+                                <%if(team.m_tshirt0 == "M"){%>
+                                    <option value="<%= team.m_tshirt0 %>"><%= team.m_tshirt0 %></option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt0 == "XL"){%>
+                                    <option value="<%= team.m_tshirt0 %>"><%= team.m_tshirt0 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt0 == "L"){%>
+                                    <option value="<%= team.m_tshirt0 %>"><%= team.m_tshirt0 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="S">Small</option>  
+                                <%}else{%>
+                                    <option value="<%= team.m_tshirt0 %>"><%= team.m_tshirt0 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 1-->
+                <div class="x_title">
+                    <h6>Team Member-1 Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Member-1 *</label>
+                            <input required="required" type="text" value="<%= team.m_name1 %>" id="m_name1" name="m_name1" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Member-1 *</label>
+                            <input required="required" type="email" value="<%= team.m_email1 %>" id="m_email1" name="m_email1" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Member-1 *</label>
+                            <input required="required" type="text" value="<%= team.m_contact1 %>" id="m_contact1" name="m_contact1" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="m_tshirt1" name="m_tshirt1">
+                                <option disabled>Choose an Option</option>
+                                <%if(team.m_tshirt1 == "M"){%>
+                                    <option value="<%= team.m_tshirt1 %>"><%= team.m_tshirt1 %></option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt1 == "XL"){%>
+                                    <option value="<%= team.m_tshirt1 %>"><%= team.m_tshirt1 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt1 == "L"){%>
+                                    <option value="<%= team.m_tshirt1 %>"><%= team.m_tshirt1 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="S">Small</option>  
+                                <%}else{%>
+                                    <option value="<%= team.m_tshirt1 %>"><%= team.m_tshirt1 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Team Member 2-->
+                <div class="x_title">
+                    <h6>Team Member-2 Information</h6>                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="item form-group">
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Name of Member-2 *</label>
+                            <input required="required" type="text" value="<%= team.m_name2 %>" id="m_name2" name="m_name2" placeholder="Name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Email of Member-2 *</label>
+                            <input required="required" type="email" value="<%= team.m_email2 %>" id="m_email2" name="m_email2" placeholder="Email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>Contact No. of Member-2 *</label>
+                            <input required="required" type="text" value="<%= team.m_contact2 %>" id="m_contact2" name="m_contact2" placeholder="Contact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12  form-group">
+                        <div class="form-group row">
+                            <label>T-shirst Size *</label>
+                            <select class="form-control" id="m_tshirt2" name="m_tshirt2">
+                                <option disabled>Choose an Option</option>
+                                <%if(team.m_tshirt2 == "M"){%>
+                                    <option value="<%= team.m_tshirt2 %>"><%= team.m_tshirt2 %></option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt2 == "XL"){%>
+                                    <option value="<%= team.m_tshirt2 %>"><%= team.m_tshirt2 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="S">Small</option>
+                                <%}else if(team.m_tshirt2 == "L"){%>
+                                    <option value="<%= team.m_tshirt2 %>"><%= team.m_tshirt2 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="S">Small</option>  
+                                <%}else{%>
+                                    <option value="<%= team.m_tshirt2 %>"><%= team.m_tshirt2 %></option>
+                                    <option value="M">Medium</option>
+                                    <option value="XL">Extra Large</option>
+                                    <option value="L">Large</option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ln_solid"></div>
+                <div class="item form-group">
+                  <div class="col-md-6 col-sm-6 offset-md-3">
+                    <a href="/ProgrammingContest/Team-list" class="btn btn-dark btn-xs" type="reset">Cancel</a>
+                    <button type="submit" class="btn btn-success btn-xs">Submit</button>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

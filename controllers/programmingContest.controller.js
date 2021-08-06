@@ -195,17 +195,17 @@ const selectPC = (req, res) => {
 
 const getEditPC = (req, res) => {
   const id = req.params.id;
-  let Participant = [];
+  let Team = [];
   let error = "";
 
   console.log(id);
 
   ProgrammingContest.findOne({ _id: id })
     .then((data) => {
-      Participant = data;
+      Team = data;
 
       res.render("programming-contest/edit.ejs", {
-        participant: Participant,
+        team: Team,
         error: req.flash("error"),
       });
     })
@@ -214,7 +214,7 @@ const getEditPC = (req, res) => {
 
       res.render("programming-contest/edit.ejs", {
         username: username,
-        participant: Participant,
+        Team: Team,
         error: req.flash("error", error),
       });
     });

@@ -222,13 +222,13 @@ const postEditMO = (req, res) =>{
                 req.flash('error', error);
     
                 console.log(error);
-                res.redirect('/MathOlympiad/Participant-list');
+                res.redirect('/MathOlympiad/list');
             }).catch(()=>{
                 error = "Unknown Error occured and Data was not Edited."
                 req.flash('error', error);
     
                 console.log(error);
-                res.redirect('/MathOlympiad/Participant-list');
+                res.redirect('/MathOlympiad/list');
             });
         }
         else {
@@ -236,7 +236,7 @@ const postEditMO = (req, res) =>{
             req.flash('error', error);
     
             console.log(error);
-            res.redirect('/MathOlympiad/Participant-list');
+            res.redirect('/MathOlympiad/list');
         }
     })
 }
