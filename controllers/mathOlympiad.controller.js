@@ -1,3 +1,5 @@
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const MathOlympiad = require("../models/MathOlympiad.model");
 
 const getMO = (req, res) => {
@@ -42,7 +44,22 @@ const postMO = (req, res) => {
         paid: paid,
         selected: selected,
         tshirt: tshirt,
-      });
+      })
+      const msg = {
+        to: "lixojo8659@drlatvia.com", // Change to your recipient
+        from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
+        subject: "Sending with SendGrid is Fun",
+        text: "and easy to do anywhere, even with Node.js",
+        html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
       participant
         .save()
         .then(() => {
@@ -138,107 +155,118 @@ const paymentDoneMO = (req, res) => {
 };
 
 const selectMO = (req, res) => {
-    const id = req.params.id;
-    let error = "";
-  
-    console.log(id);
-  
-    MathOlympiad.findOne({ _id: id })
-      .then((participant) => {
-        participant.selected = true;
-  
-        participant
-          .save()
-          .then(() => {
-            error = "Participant has been selected successfully!";
-            req.flash("error", error);
-  
-            console.log(error);
-            res.redirect("/MathOlympiad/list");
-          })
-          .catch(() => {
-            error = "Error Occured Participant couldn't be selected";
-            req.flash("error", error);
-  
-            console.log(error);
-            res.redirect("/MathOlympiad/list");
-          });
-      })
-      .catch(() => {
-        error = "Unknown Error occured and Participant was not found.";
-        req.flash("error", error);
-  
-        console.log(error);
-        res.redirect("/MathOlympiad/list");
-      });
-  };
+  const id = req.params.id;
+  let error = "";
 
-  const getEditMO = (req, res) =>{
-    const id = req.params.id;
-    let Participant = [];
-    let error = ''
+  console.log(id);
 
-    console.log(id);
+  MathOlympiad.findOne({ _id: id })
+    .then((participant) => {
+      participant.selected = true;
 
-    MathOlympiad.findOne({ _id: id }).then((data) => {
-        Participant = data;
+      participant
+        .save()
+        .then(() => {
+          error = "Participant has been selected successfully!";
+          req.flash("error", error);
 
-        res.render("math-olympiad/edit.ejs", { 
-            participant: Participant,
-            error: req.flash("error"),
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
+        })
+        .catch(() => {
+          error = "Error Occured Participant couldn't be selected";
+          req.flash("error", error);
+
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
         });
     })
     .catch(() => {
-        error = "An Unexpected Error occured while fetching data."
+      error = "Unknown Error occured and Participant was not found.";
+      req.flash("error", error);
 
-        res.render("math-olympiad/edit.ejs", { 
-            username: username,
-            participant: Participant,
-            error: req.flash("error", error),
+      console.log(error);
+      res.redirect("/MathOlympiad/list");
+    });
+};
+
+const getEditMO = (req, res) => {
+  const id = req.params.id;
+  let Participant = [];
+  let error = "";
+
+  console.log(id);
+
+  MathOlympiad.findOne({ _id: id })
+    .then((data) => {
+      Participant = data;
+
+      res.render("math-olympiad/edit.ejs", {
+        participant: Participant,
+        error: req.flash("error"),
+      });
+    })
+    .catch(() => {
+      error = "An Unexpected Error occured while fetching data.";
+
+      res.render("math-olympiad/edit.ejs", {
+        username: username,
+        participant: Participant,
+        error: req.flash("error", error),
+      });
+    });
+};
+
+const postEditMO = (req, res) => {
+  const id = req.params.id;
+  let error = "";
+
+  console.log(id);
+
+  MathOlympiad.findOne({ _id: id }).then((participant) => {
+    if (participant) {
+      const { name, category, contact, email, institution, tshirt } = req.body;
+
+      participant.name = name;
+      participant.category = category;
+      participant.contact = contact;
+      participant.email = email;
+      participant.institution = institution;
+      participant.tshirt = tshirt;
+
+      participant
+        .save()
+        .then(() => {
+          error = "Participant Data was edited successfully.";
+          req.flash("error", error);
+
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
+        })
+        .catch(() => {
+          error = "Unknown Error occured and Data was not Edited.";
+          req.flash("error", error);
+
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
         });
-    })
-    
-}
+    } else {
+      error = "Unknown Error occured and Data was not Edited.";
+      req.flash("error", error);
 
-const postEditMO = (req, res) =>{
-    const id = req.params.id;
-    let error = ''
+      console.log(error);
+      res.redirect("/MathOlympiad/list");
+    }
+  });
+};
 
-    console.log(id);
-
-    MathOlympiad.findOne({ _id: id }).then( (participant) => {
-        if (participant) {
-            const { name, category, contact, email, institution, tshirt } = req.body;
-
-            participant.name = name;
-            participant.category = category;
-            participant.contact = contact;
-            participant.email = email;
-            participant.institution = institution;
-            participant.tshirt = tshirt;
-
-            participant.save().then(()=>{
-                error = "Participant Data was edited successfully.";
-                req.flash('error', error);
-    
-                console.log(error);
-                res.redirect('/MathOlympiad/list');
-            }).catch(()=>{
-                error = "Unknown Error occured and Data was not Edited."
-                req.flash('error', error);
-    
-                console.log(error);
-                res.redirect('/MathOlympiad/list');
-            });
-        }
-        else {
-            error = "Unknown Error occured and Data was not Edited."
-            req.flash('error', error);
-    
-            console.log(error);
-            res.redirect('/MathOlympiad/list');
-        }
-    })
-}
-
-module.exports = { getMO, postMO, deleteMO, getMOList, paymentDoneMO, selectMO , getEditMO, postEditMO };
+module.exports = {
+  getMO,
+  postMO,
+  deleteMO,
+  getMOList,
+  paymentDoneMO,
+  selectMO,
+  getEditMO,
+  postEditMO,
+};
