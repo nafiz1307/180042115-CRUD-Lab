@@ -89,6 +89,10 @@ const PCschema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    confirmationCode: {
+        type: String,
+        unique: true,
+      },
 })
 
 const ProgrammingContest = mongoose.model("ProgrammingContest",PCschema);

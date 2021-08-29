@@ -26,6 +26,8 @@ const postMO = (req, res) => {
   const total = registrationFee;
   const paid = 0;
   const selected = false;
+  var val = Math.floor(1000 + Math.random() * 9000);
+  console.log(val);
   let error = "";
   MathOlympiad.findOne({ name: name, contact: contact }).then((participant) => {
     if (participant) {
@@ -44,13 +46,13 @@ const postMO = (req, res) => {
         paid: paid,
         selected: selected,
         tshirt: tshirt,
-      })
+        confirmationCode : val,
+      });
       const msg = {
-        to: "lixojo8659@drlatvia.com", // Change to your recipient
+        to: email, // Change to your recipient
         from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
-        subject: "Sending with SendGrid is Fun",
-        text: "and easy to do anywhere, even with Node.js",
-        html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+        subject: "Math Olympiad Registration",
+        text: "You have successfully registered to math olympiad your confirmation code is ",
       };
       sgMail
         .send(msg)
