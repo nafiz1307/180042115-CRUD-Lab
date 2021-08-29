@@ -1,3 +1,5 @@
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const ProgrammingContest = require("../models/ProgrammingContest.model");
 
 const getPC = (req, res) => {
@@ -26,6 +28,8 @@ const postPC = (req, res) => {
     m_tshirt2,
   } = req.body;
   let registrationFee = 2500;
+  var val = Math.floor(1000 + Math.random() * 9000);
+  console.log(val);
 
   const total = registrationFee;
   const paid = 0;
@@ -61,7 +65,22 @@ const postPC = (req, res) => {
           total : total,
           paid : paid,
           selected : selected,
+          confirmationCode : val,
         });
+        const msg = {
+          to: m_email0, // Change to your recipient
+          from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
+          subject: "Programming Contest Registration",
+          text: `Your team has successfully registered to Programming Contest your confirmation code is ${val} Store the code for futher use` ,
+        };
+        sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email sent");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
         team
           .save()
           .then(() => {

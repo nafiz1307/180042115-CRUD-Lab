@@ -52,7 +52,7 @@ const postMO = (req, res) => {
         to: email, // Change to your recipient
         from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
         subject: "Math Olympiad Registration",
-        text: "You have successfully registered to math olympiad your confirmation code is ",
+        text: `You have successfully registered to math olympiad your confirmation code is ${val} Store the code for futher use` ,
       };
       sgMail
         .send(msg)
