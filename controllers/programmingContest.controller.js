@@ -28,12 +28,13 @@ const postPC = (req, res) => {
     m_tshirt2,
   } = req.body;
   let registrationFee = 2500;
-  var val = Math.floor(1000 + Math.random() * 9000);
-  console.log(val);
+  // var val = Math.floor(1000 + Math.random() * 9000);
+  // console.log(val);
 
   const total = registrationFee;
   const paid = 0;
   const selected = false;
+  const val = codeGenerate();
   let error = "";
   ProgrammingContest.findOne({ teamName: teamName, institution: institution }).then(
     (team) => {

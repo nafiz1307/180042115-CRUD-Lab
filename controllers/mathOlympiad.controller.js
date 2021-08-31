@@ -1,4 +1,5 @@
 const sgMail = require("@sendgrid/mail");
+const codeGenerate = require("../utils/code-generator")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const MathOlympiad = require("../models/MathOlympiad.model");
 
@@ -26,8 +27,8 @@ const postMO = (req, res) => {
   const total = registrationFee;
   const paid = 0;
   const selected = false;
-  var val = Math.floor(1000 + Math.random() * 9000);
-  console.log(val);
+  const val = codeGenerate();
+  
   let error = "";
   MathOlympiad.findOne({ name: name, contact: contact }).then((participant) => {
     if (participant) {
