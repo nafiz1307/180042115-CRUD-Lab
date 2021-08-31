@@ -1,5 +1,6 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const codeGenerate = require("../utils/code-generator");
 const ProgrammingContest = require("../models/ProgrammingContest.model");
 
 const getPC = (req, res) => {
@@ -67,6 +68,7 @@ const postPC = (req, res) => {
           paid : paid,
           selected : selected,
           confirmationCode : val,
+          verified : false,
         });
         const msg = {
           to: m_email0, // Change to your recipient
@@ -321,6 +323,77 @@ const postEditPC = (req, res) =>{
   })
 }
 
+const getVerifyPC = (req, res) => {
+  const id = req.params.id;
+  let Team = [];
+  let error = "";
+
+  console.log(id);
+
+  ProgrammingContest.findOne({ _id: id })
+    .then((data) => {
+      Team = data;
+
+      res.render("programming-contest/verification.ejs", {
+        team: Team,
+        error: req.flash("error"),
+      });
+    })
+    .catch(() => {
+      error = "An Unexpected Error occured while fetching data.";
+
+      res.render("programming-contest/verification.ejs", {
+        username: username,
+        team: Team,
+        error: req.flash("error", error),
+      });
+    });
+};
+
+const postVerifyPC = (req, res) => {
+  const id = req.params.id;
+  let error = "";
+
+  console.log(id);
+
+  ProgrammingContest.findOne({ _id: id }).then((team) => {
+    if (team) {
+      const { verification } = req.body;
+      if (team.confirmationCode == verification) {
+        team.verified = true;
+        team
+          .save()
+          .then(() => {
+            error = "Participant is verified successfully.";
+            req.flash("error", error);
+
+            console.log(error);
+            res.redirect("/ProgrammingContest/list");
+          })
+          .catch(() => {
+            error = "Unknown Error occured and participant was not verified.";
+            req.flash("error", error);
+
+            console.log(error);
+            res.redirect("/ProgrammingContest/verify/:id");
+          });
+      } else {
+        error = "Verification code doesnot match";
+        req.flash("error", "Verification code doesnot match")
+
+        console.log(error);
+        res.redirect('back');
+      }
+    } else {
+      error = "Unknown Error occured and Data was not Edited.";
+      req.flash("error", error);
+
+      console.log(error);
+      res.redirect("/ProgrammingContest/list");
+    }
+  });
+};
+
 
 module.exports = {
   getPC,
@@ -331,4 +404,6 @@ module.exports = {
   selectPC,
   getEditPC,
   postEditPC,
+  getVerifyPC,
+  postVerifyPC,
 };

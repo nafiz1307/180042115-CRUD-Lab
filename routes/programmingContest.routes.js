@@ -14,7 +14,9 @@ const {
   paymentDonePC,
   selectPC,
   getEditPC,
-  postEditPC
+  postEditPC,
+  getVerifyPC,
+  postVerifyPC,
 } = require("../controllers/programmingContest.controller");
 
 router.get("/register", ensureAuthenticated, addUserData, getPC);
@@ -25,6 +27,8 @@ router.get("/paymentDone/:id", ensureAuthenticated, addUserData, paymentDonePC);
 router.get("/select/:id", ensureAuthenticated, addUserData, selectPC);
 router.get("/edit/:id", ensureAuthenticated, addUserData, getEditPC);
 router.post("/edit/:id", ensureAuthenticated, addUserData, postEditPC);
+router.get("/verify/:id", ensureAuthenticated, addUserData, getVerifyPC);
+router.post("/verify/:id",ensureAuthenticated, addUserData, postVerifyPC);
 
 // router.get("/paymentDone/:id", ensureAuthenticated, addUserData, paymentDoneMO);
 

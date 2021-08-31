@@ -48,6 +48,8 @@
                 <th>Payment<br>Done</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Verified</th>
+                <th>Verify</th>
 
                 <th>Coach<br>T-Shirt</th>
                 <th>Team Leader Email</th>
@@ -80,6 +82,7 @@
                 <td><%= team.m_name0 %></td>
                 <td><%= team.m_contact0 %></td>
                 <td><%= team.selected %></td>
+                
                 <td>
                   <%if(team.paid == team.total){%>
                     <p style="color: cadetblue;">Successful</p>
@@ -111,7 +114,26 @@
                     <i style="color: brown;" class="glyphicon glyphicon-trash"></i>
                   </a>
                 </td>
-                
+                <td>
+                  <%if(team.verified == true){%>
+                  <p style="color: cadetblue">Yes</p>
+                  <%}else{%>
+                  <p style="color: brown">No</p>
+                  <%}%>
+                </td>
+                <td>
+                  <% const verifyURL = "verify/" + team._id %>
+                  <a
+                    href="<%= verifyURL %>"
+                    data-toggle="tooltip"
+                    title="Verify"
+                  >
+                    <i
+                      style="color: rgb(7, 180, 94)"
+                      class="glyphicon glyphicon-new-window"
+                    ></i>
+                  </a>
+                </td>
                 <td><%= team.coachTshirt %></td>
                 <td><%= team.m_email0 %></td>
                 <td><%= team.m_tshirt0 %></td>

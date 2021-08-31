@@ -317,14 +317,14 @@ const postVerifyMO = (req, res) => {
             req.flash("error", error);
 
             console.log(error);
-            res.redirect("/MathOlympiad/list");
+            res.redirect("/MathOlympiad/verify/:id");
           });
       } else {
         error = "Verification code doesnot match";
-        req.flash("error", error);
+        req.flash("error", "Verification code doesnot match")
 
         console.log(error);
-        res.redirect(req.originalUrl);
+        res.redirect('back');
       }
     } else {
       error = "Unknown Error occured and Data was not Edited.";
