@@ -1,5 +1,5 @@
 const sgMail = require("@sendgrid/mail");
-const codeGenerate = require("../utils/code-generator")
+const codeGenerate = require("../utils/code-generator");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const MathOlympiad = require("../models/MathOlympiad.model");
 
@@ -48,14 +48,14 @@ const postMO = (req, res) => {
         paid: paid,
         selected: selected,
         tshirt: tshirt,
-        confirmationCode : val,
-        verified : verified,
+        confirmationCode: val,
+        verified: verified,
       });
       const msg = {
         to: email, // Change to your recipient
         from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
         subject: "Math Olympiad Registration",
-        text: `You have successfully registered to math olympiad your confirmation code is ${val} Store the code for futher use` ,
+        text: `You have successfully registered to math olympiad your confirmation code is ${val} Store the code for futher use`,
       };
       sgMail
         .send(msg)
@@ -265,40 +265,75 @@ const postEditMO = (req, res) => {
   });
 };
 
-const verifyMO = (req, res) => {
+const getVerifyMO = (req, res) => {
   const id = req.params.id;
-  const verification = req.body.verification;
+  let Participant = [];
   let error = "";
 
   console.log(id);
 
-  MathOlympiad.findOne({ _id: id , _verification :verification })
-    .then((participant) => {
-      participant.verified = true;
-      participant
-        .save()
-        .then(() => {
-          error = "Participant Verified";
-          req.flash("error", error);
+  MathOlympiad.findOne({ _id: id })
+    .then((data) => {
+      Participant = data;
 
-          console.log(error);
-          res.redirect("/MathOlympiad/list");
-        })
-        .catch(() => {
-          error = "Participant not verified.";
-          req.flash("error", error);
-
-          console.log(error);
-          res.redirect("/MathOlympiad/list");
-        });
+      res.render("math-olympiad/verification.ejs", {
+        participant: Participant,
+        error: req.flash("error"),
+      });
     })
     .catch(() => {
-      error = "Unknown Error occured and Participant was not found.";
+      error = "An Unexpected Error occured while fetching data.";
+
+      res.render("math-olympiad/verification.ejs", {
+        username: username,
+        participant: Participant,
+        error: req.flash("error", error),
+      });
+    });
+};
+
+const postVerifyMO = (req, res) => {
+  const id = req.params.id;
+  let error = "";
+
+  console.log(id);
+
+  MathOlympiad.findOne({ _id: id }).then((participant) => {
+    if (participant) {
+      const { verification } = req.body;
+      if (participant.confirmationCode == verification) {
+        participant.verified = true;
+        participant
+          .save()
+          .then(() => {
+            error = "Participant is verified successfully.";
+            req.flash("error", error);
+
+            console.log(error);
+            res.redirect("/MathOlympiad/list");
+          })
+          .catch(() => {
+            error = "Unknown Error occured and participant was not verified.";
+            req.flash("error", error);
+
+            console.log(error);
+            res.redirect("/MathOlympiad/list");
+          });
+      } else {
+        error = "Verification code doesnot match";
+        req.flash("error", error);
+
+        console.log(error);
+        res.redirect(req.originalUrl);
+      }
+    } else {
+      error = "Unknown Error occured and Data was not Edited.";
       req.flash("error", error);
 
       console.log(error);
       res.redirect("/MathOlympiad/list");
-    });
+    }
+  });
 };
 
 module.exports = {
@@ -310,5 +345,6 @@ module.exports = {
   selectMO,
   getEditMO,
   postEditMO,
-  verifyMO,
+  getVerifyMO,
+  postVerifyMO,
 };

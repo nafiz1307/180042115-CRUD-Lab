@@ -15,7 +15,8 @@ const {
   selectMO,
   getEditMO,
   postEditMO,
-  verifyMO,
+  getVerifyMO,
+  postVerifyMO,
 } = require("../controllers/mathOlympiad.controller");
 
 router.get("/register", ensureAuthenticated, addUserData, getMO);
@@ -26,7 +27,8 @@ router.get("/paymentDone/:id", ensureAuthenticated, addUserData, paymentDoneMO);
 router.get("/select/:id", ensureAuthenticated, addUserData, selectMO);
 router.get("/edit/:id", ensureAuthenticated, addUserData, getEditMO);
 router.post("/edit/:id", ensureAuthenticated, addUserData, postEditMO);
-router.post("/verify:id",ensureAuthenticated, addUserData, verifyMO);
+router.get("/verify/:id", ensureAuthenticated, addUserData, getVerifyMO);
+router.post("/verify/:id",ensureAuthenticated, addUserData, postVerifyMO);
 
 // router.get("/paymentDone/:id", ensureAuthenticated, addUserData, paymentDoneMO);
 
