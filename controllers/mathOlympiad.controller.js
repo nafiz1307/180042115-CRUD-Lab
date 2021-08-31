@@ -1,6 +1,5 @@
-const sgMail = require("@sendgrid/mail");
+const send = require("../utils/auto-email")
 const codeGenerate = require("../utils/code-generator");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const MathOlympiad = require("../models/MathOlympiad.model");
 
 const getMO = (req, res) => {
@@ -51,20 +50,9 @@ const postMO = (req, res) => {
         confirmationCode: val,
         verified: verified,
       });
-      const msg = {
-        to: email, // Change to your recipient
-        from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
-        subject: "Math Olympiad Registration",
-        text: `You have successfully registered to math olympiad your confirmation code is ${val} Store the code for futher use`,
-      };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      send(email,"Math Olympiad",val);
+
+      
       participant
         .save()
         .then(() => {

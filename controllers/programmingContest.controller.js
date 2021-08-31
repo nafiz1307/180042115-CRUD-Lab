@@ -1,5 +1,4 @@
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const send = require("../utils/auto-email")
 const codeGenerate = require("../utils/code-generator");
 const ProgrammingContest = require("../models/ProgrammingContest.model");
 
@@ -70,20 +69,7 @@ const postPC = (req, res) => {
           confirmationCode : val,
           verified : false,
         });
-        const msg = {
-          to: m_email0, // Change to your recipient
-          from: "joystmp+ulgc9@gmail.com", // Change to your verified sender
-          subject: "Programming Contest Registration",
-          text: `Your team has successfully registered to Programming Contest your confirmation code is ${val} Store the code for futher use` ,
-        };
-        sgMail
-          .send(msg)
-          .then(() => {
-            console.log("Email sent");
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        send(m_email0,"Programming Contest", val)
         team
           .save()
           .then(() => {
