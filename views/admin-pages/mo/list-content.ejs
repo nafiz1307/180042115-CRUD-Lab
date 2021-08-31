@@ -45,6 +45,10 @@
               <th>Payment done</th>
               <th>Edit</th>
               <th>Delete</th>
+              <th>Verified</th>
+              <th>Verify</th>
+              <th>Verification code</th>
+
             </tr>
           </thead>
           <tbody>
@@ -91,6 +95,28 @@
                         <i style="color: brown;" class="glyphicon glyphicon-trash"></i>
                       </a>
                   </td>
+                  <td><%if(participant.verified == true){%>
+                      <p style="color: cadetblue;">Yes</p>
+                    <%}else{%>
+                      <p style="color: brown;">No</p>
+                    <%}%></td>
+                  </td>
+                  <td>
+                    <% const verifyURL = "/MathOlympiad/List" + participant._id %>
+                    <form
+              method="POST"
+              action="<%= verifyURL %>"
+              id="demo-form2"
+              data-parsley-validate
+              class="form-horizontal form-label-left"
+            ><input
+                    type="text"
+                    id="verify"
+                    name="verify"
+                    class="form-control"
+                  />
+            </td>
+            <td><button type="submit" class="btn btn-success">verify</button></td>
                 </tr>
              <% })
             }%>

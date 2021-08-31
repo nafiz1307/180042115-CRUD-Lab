@@ -45,6 +45,10 @@ const MOschema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  verified: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const Matholympiad = mongoose.model("MathOlympiad", MOschema);

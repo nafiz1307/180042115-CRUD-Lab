@@ -27,8 +27,9 @@ const postMO = (req, res) => {
   const total = registrationFee;
   const paid = 0;
   const selected = false;
+  const verified = false;
   const val = codeGenerate();
-  
+
   let error = "";
   MathOlympiad.findOne({ name: name, contact: contact }).then((participant) => {
     if (participant) {
@@ -48,6 +49,7 @@ const postMO = (req, res) => {
         selected: selected,
         tshirt: tshirt,
         confirmationCode : val,
+        verified : verified,
       });
       const msg = {
         to: email, // Change to your recipient
@@ -263,6 +265,42 @@ const postEditMO = (req, res) => {
   });
 };
 
+const verifyMO = (req, res) => {
+  const id = req.params.id;
+  const verification = req.body.verification;
+  let error = "";
+
+  console.log(id);
+
+  MathOlympiad.findOne({ _id: id , _verification :verification })
+    .then((participant) => {
+      participant.verified = true;
+      participant
+        .save()
+        .then(() => {
+          error = "Participant Verified";
+          req.flash("error", error);
+
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
+        })
+        .catch(() => {
+          error = "Participant not verified.";
+          req.flash("error", error);
+
+          console.log(error);
+          res.redirect("/MathOlympiad/list");
+        });
+    })
+    .catch(() => {
+      error = "Unknown Error occured and Participant was not found.";
+      req.flash("error", error);
+
+      console.log(error);
+      res.redirect("/MathOlympiad/list");
+    });
+};
+
 module.exports = {
   getMO,
   postMO,
@@ -272,4 +310,5 @@ module.exports = {
   selectMO,
   getEditMO,
   postEditMO,
+  verifyMO,
 };
