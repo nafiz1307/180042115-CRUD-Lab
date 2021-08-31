@@ -18,6 +18,21 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
+                <% let success = "Data Successfully deleted." %>
+          <% let success2 = "Payment Accepted Successfully." %>
+          <% let success3 = "Team Selected Successfully." %>
+          <% let success4 = "Team Data was edited successfully." %>
+          
+          <%if(error.length>0){if(error == success || success2 || success3){%>
+              <div class="alert alert-success">
+                  <%=error%><br/>
+              </div>
+            <%}else{%>
+              <div class="alert alert-danger">
+                  <%= error%><br/>
+              </div>
+            <%}%>
+          <%}%>
               <br />
   
               <% const verifyURL = "/ProgrammingContest/verify/" + team._id %>
