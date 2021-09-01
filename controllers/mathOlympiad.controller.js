@@ -1,4 +1,5 @@
 const send = require("../utils/auto-email")
+const hexgen = require('hex-generator');
 const codeGenerate = require("../utils/code-generator");
 const MathOlympiad = require("../models/MathOlympiad.model");
 
@@ -28,6 +29,8 @@ const postMO = (req, res) => {
   const selected = false;
   const verified = false;
   const val = codeGenerate();
+  const val32=hexgen();
+  console.log(val32);
 
   let error = "";
   MathOlympiad.findOne({ name: name, contact: contact }).then((participant) => {
@@ -49,6 +52,7 @@ const postMO = (req, res) => {
         tshirt: tshirt,
         confirmationCode: val,
         verified: verified,
+        code32 : val32,
       });
       send(name,email,"Math Olympiad",val);
 

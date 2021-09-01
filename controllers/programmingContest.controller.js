@@ -1,4 +1,5 @@
 const send = require("../utils/auto-email")
+const hexgen = require('hex-generator');
 const codeGenerate = require("../utils/code-generator");
 const ProgrammingContest = require("../models/ProgrammingContest.model");
 
@@ -35,6 +36,9 @@ const postPC = (req, res) => {
   const paid = 0;
   const selected = false;
   const val = codeGenerate();
+  const code32=hexgen();
+  const verified = false;
+  console.log(code32);
   let error = "";
   ProgrammingContest.findOne({ teamName: teamName, institution: institution }).then(
     (team) => {
@@ -67,7 +71,8 @@ const postPC = (req, res) => {
           paid : paid,
           selected : selected,
           confirmationCode : val,
-          verified : false,
+          verified : verified,
+          code32: code32,
         });
         send(m_name0,m_email0,"Programming Contest", val)
         send(m_name1,m_email1,"Programming Contest", val)

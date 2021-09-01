@@ -97,6 +97,10 @@ const PCschema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  code32:{
+    type: String,
+    required: true,
+  }
 });
 
 const ProgrammingContest = mongoose.model("ProgrammingContest", PCschema);
