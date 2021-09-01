@@ -54,7 +54,7 @@ const postMO = (req, res) => {
         verified: verified,
         code32 : val32,
       });
-      send(name,email,"Math Olympiad",val);
+      send(name,email,"Math Olympiad",val,val32);
 
       
       participant
