@@ -69,7 +69,10 @@ const postPC = (req, res) => {
           confirmationCode : val,
           verified : false,
         });
-        send(m_email0,"Programming Contest", val)
+        send(m_name0,m_email0,"Programming Contest", val)
+        send(m_name1,m_email1,"Programming Contest", val)
+        send(m_name2,m_email2,"Programming Contest", val)
+        send(coachName,coachEmail,"Programming Contest", val)
         team
           .save()
           .then(() => {

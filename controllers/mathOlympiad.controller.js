@@ -50,7 +50,7 @@ const postMO = (req, res) => {
         confirmationCode: val,
         verified: verified,
       });
-      send(email,"Math Olympiad",val);
+      send(name,email,"Math Olympiad",val);
 
       
       participant
